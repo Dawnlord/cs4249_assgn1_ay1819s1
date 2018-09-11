@@ -2,9 +2,12 @@
 
 // Location of data files
 const trialsFile = "./data/experiments.csv"
-const menuL1File = "./data/menu_depth_1.csv"
-const menuL2File = "./data/menu_depth_2.csv"
-const menuL3File = "./data/menu_depth_3.csv"
+const menuL1B4File = "./data/menu_depth_1_breadth_4.csv"
+const menuL2B4File = "./data/menu_depth_2_breadth_4.csv"
+const menuL3B4File = "./data/menu_depth_3_breadth_4.csv"
+const menuL1B2File = "./data/menu_depth_1_breadth_2.csv"
+const menuL2B2File = "./data/menu_depth_2_breadth_2.csv"
+const menuL3B2File = "./data/menu_depth_3_breadth_2.csv"
 
 // Global variables
 var menu;
@@ -14,10 +17,22 @@ var currentTrial = 1;
 var markingMenuL1 = [];
 var markingMenuL2 = [];
 var markingMenuL3 = [];
+var markingMenuL1B4 = [];
+var markingMenuL2B4 = [];
+var markingMenuL3B4 = [];
+var markingMenuL1B2 = [];
+var markingMenuL2B2 = [];
+var markingMenuL3B2 = [];
 var radialMenuTree = null;
 var radialMenuL1 = [];
 var radialMenuL2 = [];
 var radialMenuL3 = [];
+var radialMenuL1B4 = [];
+var radialMenuL2B4 = [];
+var radialMenuL3B4 = [];
+var radialMenuL1B2 = [];
+var radialMenuL2B2 = [];
+var radialMenuL3B2 = [];
 var tracker = new ExperimentTracker();
 var markingMenuSubscription = null;
 var radialMenuSvg = null;
@@ -47,28 +62,39 @@ function initExperiment() {
 		var cells = records[i].split(",");
 		var menuType = cells[0].trim();
 		var menuDepth = cells[1].trim();
-		var menuSize = cells[2].trim();
+		var menuBreadth = cells[2].trim();
 		var targetItem = cells[3].trim();
 		trialsData[i] = {
 			'Menu Type': menuType,
 			'Menu Depth': menuDepth,
-			'Menu Size': menuSize, 
+			'Menu Breadth': menuBreadth, 
 			'Target Item': targetItem
 		};
 	}
 
 	// Get Menus
-	var menuL1Data = getData(menuL1File);
-	var menuL2Data = getData(menuL2File);
-	var menuL3Data = getData(menuL3File);
+	var menuL1B4Data = getData(menuL1B4File);
+	var menuL2B4Data = getData(menuL2B4File);
+	var menuL3B4Data = getData(menuL3B4File);
+
+	var menuL1B2Data = getData(menuL1B2File);
+	var menuL2B2Data = getData(menuL2B2File);
+	var menuL3B2Data = getData(menuL3B2File);
 	
 	// Format CSV Menu to respective Menu structures
-	markingMenuL1 = formatMarkingMenuData(menuL1Data);
-	markingMenuL2 = formatMarkingMenuData(menuL2Data);
-	markingMenuL3 = formatMarkingMenuData(menuL3Data);
-	radialMenuL1 = formatRadialMenuData(menuL1Data);
-	radialMenuL2 = formatRadialMenuData(menuL2Data);
-	radialMenuL3 = formatRadialMenuData(menuL3Data);
+	markingMenuL1B4 = formatMarkingMenuData(menuL1B4Data);
+	markingMenuL2B4 = formatMarkingMenuData(menuL2B4Data);
+	markingMenuL3B4 = formatMarkingMenuData(menuL3B4Data);
+	radialMenuL1B4 = formatRadialMenuData(menuL1B4Data);
+	radialMenuL2B4 = formatRadialMenuData(menuL2B4Data);
+	radialMenuL3B4 = formatRadialMenuData(menuL3B4Data);
+
+	markingMenuL1B2 = formatMarkingMenuData(menuL1B2Data);
+	markingMenuL2B2 = formatMarkingMenuData(menuL2B2Data);
+	markingMenuL3B2 = formatMarkingMenuData(menuL3B2Data);
+	radialMenuL1B2 = formatRadialMenuData(menuL1B2Data);
+	radialMenuL2B2 = formatRadialMenuData(menuL2B2Data);
+	radialMenuL3B2 = formatRadialMenuData(menuL3B2Data);
 	
 	//Start the first trial
 	nextTrial();
@@ -89,13 +115,13 @@ function nextTrial() {
 
 		var menuType = trialsData[currentTrial]['Menu Type'];
 		var menuDepth = trialsData[currentTrial]['Menu Depth'];
-		var menuSize = trialsData[currentTrial]['Menu Size'];
+		var menuBreadth = trialsData[currentTrial]['Menu Breadth'];
 		var targetItem = trialsData[currentTrial]['Target Item'];
 
 		document.getElementById("trialNumber").innerHTML = String(currentTrial) + "/" + String(numTrials);
 		document.getElementById("menuType").innerHTML = menuType;
 		document.getElementById("menuDepth").innerHTML = menuDepth;
-		document.getElementById("menuSize").innerHTML = menuSize;
+		document.getElementById("menuBreadth").innerHTML = menuBreadth;
 		document.getElementById("targetItem").innerHTML = targetItem;
 		document.getElementById("selectedItem").innerHTML = "&nbsp;";
 		// Set IV3 state over here
@@ -104,8 +130,24 @@ function nextTrial() {
 		tracker.trial = currentTrial;
 		tracker.menuType = menuType;
 		tracker.menuDepth = menuDepth;
-		tracker.menuSize = menuSize;
+		tracker.menuBreadth = menuBreadth;
 		tracker.targetItem = targetItem;
+
+		if(menuBreadth == 2) {
+			markingMenuL1 = markingMenuL1B2;
+			markingMenuL2 = markingMenuL2B2;
+			markingMenuL3 = markingMenuL3B2;
+			radialMenuL1 = radialMenuL1B2;
+			radialMenuL2 = radialMenuL2B2;
+			radialMenuL3 = radialMenuL3B2;
+		} else if(menuBreadth == 4) {
+			markingMenuL1 = markingMenuL1B4;
+			markingMenuL2 = markingMenuL2B4;
+			markingMenuL3 = markingMenuL3B4;
+			radialMenuL1 = radialMenuL1B4;
+			radialMenuL2 = radialMenuL2B4;
+			radialMenuL3 = radialMenuL3B4;
+		}
 
 		if (menuType === "Marking") {
 				
