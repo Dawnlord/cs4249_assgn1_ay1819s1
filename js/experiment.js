@@ -1,7 +1,10 @@
 'use strict';
 
 // Location of data files
-const trialsFile = "./data/experiments.csv"
+const trialsFile1 = "./data/experiments1.csv"
+const trialsFile2 = "./data/experiments2.csv"
+const trialsFile3 = "./data/experiments3.csv"
+const trialsFile4 = "./data/experiments4.csv"
 const menuL1B4File = "./data/menu_depth_1_breadth_4.csv"
 const menuL2B4File = "./data/menu_depth_2_breadth_4.csv"
 const menuL3B4File = "./data/menu_depth_3_breadth_4.csv"
@@ -11,6 +14,7 @@ const menuL3B2File = "./data/menu_depth_3_breadth_2.csv"
 
 // Global variables
 var menu;
+var partiID = 1;
 var trialsData = [];
 var numTrials = 0;
 var currentTrial = 1;
@@ -53,8 +57,9 @@ function getData(relativePath) {
 // Loads the CSV data files on page load and store it to global variables
 function initExperiment() {
 
+	document.getElementById("partiId").innerHTML = partiID;
 	// Get Trails
-	var data = getData(trialsFile);
+	var data = getData(trialsFile1);
 
 	var records = data.split("\n");
 	numTrials = records.length - 1;
