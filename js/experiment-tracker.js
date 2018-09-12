@@ -13,6 +13,16 @@ class ExperimentTracker {
 
 		this.personalData = [];
 
+		this.rom = null;
+		this.ror = null;
+		this.prefer = null;
+		this.dom = null;
+		this.dor = null;
+		this.som = null;
+		this.sor = null;
+
+		this.postData = [];
+
 		this.trials = [];
 		this.order = null;
 		this.partiId = null;
@@ -79,6 +89,13 @@ class ExperimentTracker {
 		csvFile += "Order,Participant ID,Technique,Menu Depth,Menu Breadth,Trial,Target Item,Selected Item,Attempt,Start Time, End Time, Response Time\n";
 		for (var i = 0; i < this.trials.length; i++) {
 			csvFile += this.trials[i].join(',');
+			csvFile += "\n";
+		}
+
+		csvFile += "\nRate of Marking,Rate of Radial,Preference,Difficulties of Marking,Difficulties of Radial,Suggestion of Marking,Suggestion of Radial\n";
+		this.postData.push([this.rom,this.ror,this.prefer,this.dom,this.dor,this.som,this.sor]);
+		for (var i = 0; i < this.postData.length; i++) {
+			csvFile += this.postData[i].join(',');
 			csvFile += "\n";
 		}
 

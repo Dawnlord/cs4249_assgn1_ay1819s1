@@ -209,13 +209,26 @@ function nextTrial() {
 		
 	    var nextButton = document.getElementById("nextButton");
 	    nextButton.innerHTML = "Done";
-		tracker.toCsv();
+	    var expPage = document.getElementById("exp");
+	    expPage.style.display = 'none';		
+	    var postPage = document.getElementById("postPage");
+	    postPage.style.display = 'block';	
 	}
 }
 
+function sendPostResultToTracker(postData){
+	tracker.rom = postData['Rate of Marking'];
+	tracker.ror = postData['Rate of Radial'];
+	tracker.prefer = postData['Preference'];
+	tracker.dom = postData['Difficulties of Marking'];
+	tracker.dor = postData['Difficulties of Radial'];
+	tracker.som = postData['Suggestion of Marking'];
+	tracker.sor = postData['Suggestion of Radial'];
+}
 
-
-
+function generateResult(){
+	tracker.toCsv();
+}
 
 /*Functions related to MarkingMenu*/
 

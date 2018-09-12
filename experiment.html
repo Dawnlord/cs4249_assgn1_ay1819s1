@@ -16,6 +16,7 @@
 
   <script type="text/javascript">
       var allData = null;
+      var postData = null;
       function startExp(id){
         if(testAllInput()){
           var instru = document.getElementById('instruction'); 
@@ -68,6 +69,56 @@
           };
         }
         return testResult;
+      }
+
+      function endExp(){
+        var rom = null;
+        for(var i = 1; i <= 5; i++){
+          if(document.getElementById('m'+i).checked){
+            rom = i;
+          }
+        }
+
+        var ror = null;
+        for(var i = 1; i <= 5; i++){
+          if(document.getElementById('r'+i).checked){
+            ror = i;
+          }
+        }
+
+        var mm = document.getElementById('markingmenuchoise');
+        var rm = document.getElementById('radialmenuchoise');
+        var both = document.getElementById('both');
+        var neither = document.getElementById('neither');
+
+        var prefer = mm.checked ? 'Marking Menu' : (rm.checked ? 'Radial Menu' : (both.checked ? 'Both' : (neither.checked ? 'Neither' : null)));
+        var dom = document.getElementById('dom');
+        var dor = document.getElementById('dor');
+        var som = document.getElementById('som');
+        var sor = document.getElementById('sor');
+        var testResult = (rom != null)
+                        && (ror != null)
+                        && (prefer != null)
+                        && (dor.value != '')
+                        && (dom.value != '')
+                        && (som.value != '')
+                        && (sor.value != '');
+
+        if(testResult){
+          postData = {
+            'Rate of Marking':rom,
+            'Rate of Radial':ror,
+            'Preference':prefer,
+            'Difficulties of Marking':dom.value,
+            'Difficulties of Radial':dor.value,
+            'Suggestion of Marking':som.value,
+            'Suggestion of Radial':sor.value
+          };
+          sendPostResultToTracker(postData);
+          generateResult();
+        } else {
+          alert("You haven't complete all information!!!");
+        }      
       }
   </script>
 
@@ -207,6 +258,87 @@
 
 
 </div>
+
+<div class="content-agileits" id="postPage" style="display:none">
+    <h1 class="title">Experiment to compare Marking and Radial menus</h1>
+    <div class="content" style="line-height:30px;">
+      <form action="#" method="post" data-toggle="validator">
+        <h2 class="pre-title">Post-experiment:</h2>
+        <div class="form-group w3ls-opt">
+          <text>1.  Rate the ease of use of Marking Menu on a 5-point Likert scale: <br/></text>
+          <label class="w3layouts">
+            <input type="radio" id="m1" value="1">1
+          </label>
+          <label class="w3layouts label2">
+            <input type="radio" id="m2" value="2">2
+          </label>
+          <label class="w3layouts label3">
+            <input type="radio" id="m3" value="3">3
+          </label>
+          <label class="w3layouts label4">
+            <input type="radio" id="m4" value="4">4
+          </label>
+          <label class="w3layouts label5">
+            <input type="radio" id="m5" value="5">5
+          </label>
+        </div>
+        <div class="form-group w3ls-opt">
+          <text>2.  Rate the ease of use of Radial Menu on a 5-point Likert scale: <br/></text>
+          <label class="w3layouts">
+            <input type="radio" id="r1" value="1">1
+          </label>
+          <label class="w3layouts label2">
+            <input type="radio" id="r2" value="2">2
+          </label>
+          <label class="w3layouts label3">
+            <input type="radio" id="r3" value="3">3
+          </label>
+          <label class="w3layouts label4">
+            <input type="radio" id="r4" value="4">4
+          </label>
+          <label class="w3layouts label5">
+            <input type="radio" id="r5" value="5">5
+          </label>
+        </div>
+        <div class="form-group w3ls-opt">
+          <text>3.  Which kind of Menu do you prefer? <br/></text>
+          <label class="w3layouts">
+            <input type="radio" id="markingmenuchoise" value="markingmenu">Marking Menu
+          </label>
+          <label class="w3layouts label2">
+            <input type="radio" id="radialmenuchoise" value="radialmenu">Radial Menu
+          </label>
+          <label class="w3layouts label3">
+            <input type="radio" id="both" value="both">Both
+          </label>
+          <label class="w3layouts label4">
+            <input type="radio" id="neither" value="neither">Neither
+          </label>
+        </div>
+        <div class="form-group">
+          <text>4.  Do you meet any difficulties when using Marking Menu? <br/></text>
+          <textarea style="width:500px;height:100px;" id="dom"></textarea>
+        </div>
+        <div class="form-group">
+          <text>5. Do you meet any difficulties when using Radial Menu? <br/></text>
+          <textarea style="width:500px;height:100px;" id="dor"></textarea>
+        </div>
+        <div class="form-group">
+          <text>6.  Do you have any suggestions for improvement of Marking Menu? <br/></text>
+          <textarea style="width:500px;height:100px;" id="som"></textarea>
+        </div>
+        <div class="form-group">
+          <text>7.  Do you have any suggestions for improvement of Radial Menu? <br/></text>
+          <textarea style="width:500px;height:100px;" id="sor"></textarea>
+        </div>        
+        <p></p>
+        <div class="form-group">
+          <button button type="button" class="btn btn-lg" onClick="endExp()">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   </body>
     
     
