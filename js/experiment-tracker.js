@@ -3,6 +3,16 @@ class ExperimentTracker {
 
 
 	constructor() {
+		this.partiName = null;
+		this.age = null;
+		this.gender = null;
+		this.faculty = null;
+		this.degree = null;
+		this.major = null;
+		this.usingTime = null;
+
+		this.personalData = [];
+
 		this.trials = [];
 		this.order = null;
 		this.partiId = null;
@@ -58,7 +68,15 @@ class ExperimentTracker {
 	}
 
 	toCsv() {
-		var csvFile = "Order,Participant ID,Technique,Menu Depth,Menu Breadth,Trial,Target Item,Selected Item,Attempt,Start Time, End Time, Response Time\n";
+		this.personalData.push([this.partiName,this.age,this.gender,this.faculty,this.degree,this.major,this.usingTime]);
+		var csvFile = "Name,Age,Gender,Faculty,Degree,Major,Using Time\n";
+		for (var i = 0; i < this.personalData.length; i++) {
+			csvFile += this.personalData[i].join(',');
+			csvFile += "\n";
+		}
+		csvFile += "\n";
+
+		csvFile += "Order,Participant ID,Technique,Menu Depth,Menu Breadth,Trial,Target Item,Selected Item,Attempt,Start Time, End Time, Response Time\n";
 		for (var i = 0; i < this.trials.length; i++) {
 			csvFile += this.trials[i].join(',');
 			csvFile += "\n";

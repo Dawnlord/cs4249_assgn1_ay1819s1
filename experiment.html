@@ -15,15 +15,59 @@
 	<link href="./css/experiment.css" rel="stylesheet"> 
 
   <script type="text/javascript">
+      var allData = null;
       function startExp(id){
-        var instru = document.getElementById('instruction'); 
-        var exp=document.getElementById(id);
-        if(exp.style.display=='none') {
-          exp.style.display='block';
-          instru.style.display = 'none';
+        if(testAllInput()){
+          var instru = document.getElementById('instruction'); 
+          var exp=document.getElementById(id);
+          if(exp.style.display=='none') {
+            exp.style.display='block';
+            instru.style.display = 'none';
+          }
+          setInformationToTracker(allData);
+          initExperiment();
+        } else {
+          alert("You haven't complete all information!!!");
         }
-        setInformationToTracker();
-        initExperiment();
+      }
+
+      function testAllInput(){
+        var male = document.getElementById('male');
+        var female = document.getElementById('female');
+        var bachelor = document.getElementById('bachelor');
+        var master = document.getElementById('master');
+        var phd = document.getElementById('phd');
+
+        var pID = document.getElementById('pid'); //name.value == ''
+        var name = document.getElementById('name');
+        var age = document.getElementById('age');
+        var gender = male.checked ? 'Male' : 'Fmale';
+        var faculty = document.getElementById('faculty');
+        var degree = bachelor.checked ? 'Bachelor' : (master.checked ? 'Master' : 'PHD');
+        var major = document.getElementById('major');
+        var usingTime = document.getElementById('usetime');
+        var agree = document.getElementById('agree'); //agree.checked
+        
+        var testResult = (pID.value != 0)
+                        && (name.value != '')
+                        && (age.value != '')
+                        && (faculty.value != '')
+                        && (major.value != '')
+                        && (usingTime.value != '')
+                        && (agree.checked)
+        if(testResult) {
+          allData = {
+            'Participator ID':pID.value,
+            'Name':name.value,
+            'Age':age.value,
+            'Gender':gender,
+            'Faculty':faculty.value,
+            'Degree':degree,
+            'Major':major.value,
+            'Using Time':usingTime.value
+          };
+        }
+        return testResult;
       }
   </script>
 
@@ -37,7 +81,7 @@
         <h2 class="pre-title">Pre-experiment:</h2>
         <div class="form-group">
           <label for="name" class="control-label">Participator ID:</label>
-          <select>
+          <select id="pid">
             <option value ="1">1</option>
             <option value ="2">2</option>
             <option value ="3">3</option>
@@ -112,7 +156,7 @@
         </p>
 
         <h2>Consent:</h2>
-        <p><input type="checkbox" name="agree" value="agree"/>I have read this form and the research study has been explained to me. I have been given the opportunity to ask questions and my questions have been answered. If I have additional questions, I have been told whom to contact. I agree to participate in the research study described above and will receive a copy of this consent form.</p>
+        <p><input type="checkbox" name="agree" value="agree" id="agree"/>I have read this form and the research study has been explained to me. I have been given the opportunity to ask questions and my questions have been answered. If I have additional questions, I have been told whom to contact. I agree to participate in the research study described above and will receive a copy of this consent form.</p>
         <div class="form-group">
           <button button type="button" class="btn btn-lg" onClick="startExp('exp')">Start Experiment</button>
         </div>

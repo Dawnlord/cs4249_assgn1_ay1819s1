@@ -54,8 +54,15 @@ function getData(relativePath) {
 	return xmlHttp.responseText;
 }
 
-function setInformationToTracker() {
-	
+function setInformationToTracker(alldata) {
+	partiID = alldata['Participator ID'];
+	tracker.partiName = alldata['Name'];
+	tracker.age = alldata['Age'];
+	tracker.gender = alldata['Gender'];
+	tracker.faculty = alldata['Faculty'];
+	tracker.degree = alldata['Degree'];
+	tracker.major = alldata['Major'];
+	tracker.usingTime = alldata['Using Time'];
 }
 
 // Loads the CSV data files on page load and store it to global variables
