@@ -4,6 +4,90 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
+h1.title {
+  text-align: center;
+  font-size: 2.5em;
+  letter-spacing: 2px;
+  padding: 0.5em 0;
+  color: #ffffff;
+  background-color: #23527c;
+  text-transform: uppercase;
+}
+
+label.control-label {
+  color: #000;
+  margin-bottom: 10px;
+  font-style: italic;
+  font-size: 0.9em;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+form-group.field {
+  margin-bottom: 0;
+}
+
+.help-block {
+  color: #fb0000;
+}
+
+.has-error .help-block,
+.has-error .control-label,
+.has-error .radio,
+.has-error .checkbox,
+.has-error .radio-inline,
+.has-error .checkbox-inline,
+.has-error.radio label,
+.has-error.checkbox label,
+.has-error.radio-inline label,
+.has-error.checkbox-inline label {
+  color: #000;
+}
+
+.content-agileits {
+  width: 67%;
+  margin: 3em auto;
+}
+
+label.w3layouts {
+  display: inline-block;
+  background: #fff;
+  padding: 0.5em 0;
+  margin-left: 2em;
+  font-size: 1em;
+  color: #100d0d;
+  cursor: pointer;
+}
+
+.w3ls-opt input[type="radio"] {
+  margin-right: 0.5em;
+}
+
+.content-agileits button.btn.btn-lg {
+  width: 60%;
+  height: 45px;
+  margin: 0 auto;
+  text-align: center;
+  float: none;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  display: block;
+  border-radius: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -o-border-radius: 0;
+  -ms-border-radius: 0;
+  background: #890f0a;
+  transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  text-transform: uppercase;
+}
+
 .label {
   display: block;
   padding: .2em .2em .2em;
@@ -575,7 +659,7 @@ html,body { height:100%; width: 95vw }
     .curved, .radial {
         fill: #fff;
     }
- 
+
 .btn:focus,
 .btn:active:focus,
 .btn.active:focus,

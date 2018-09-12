@@ -14,10 +14,113 @@
 	<!-- Experiment Stylesheet -->
 	<link href="./css/experiment.css" rel="stylesheet"> 
 
+  <script type="text/javascript">
+      function startExp(id){
+        var instru = document.getElementById('instruction'); 
+        var exp=document.getElementById(id);
+        if(exp.style.display=='none') {
+          exp.style.display='block';
+          instru.style.display = 'none';
+        }
+        setInformationToTracker();
+        initExperiment();
+      }
+  </script>
 
   </head>
-  <body onload="initExperiment()" >
+  <body>
 
+  <div class="content-agileits" id="instruction">
+    <h1 class="title">Experiment to compare Marking and Radial menus</h1>
+    <div class="content" style="line-height:30px;">
+      <form action="#" method="post" data-toggle="validator">
+        <h2 class="pre-title">Pre-experiment:</h2>
+        <div class="form-group">
+          <label for="name" class="control-label">Participator ID:</label>
+          <select>
+            <option value ="1">1</option>
+            <option value ="2">2</option>
+            <option value ="3">3</option>
+            <option value ="4">4</option>
+            <option value ="5">5</option>
+            <option value ="6">6</option>
+            <option value ="7">7</option>
+            <option value ="8">8</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="name" class="control-label">Name:</label>
+          <input type="text" class="form-control" id="name" placeholder="Name">
+        </div>
+        <div class="form-group">
+          <label for="age" class="control-label">Age:</label>
+          <input type="text" class="form-control" id="age" placeholder="Age">
+        </div>
+        <div class="form-group w3ls-opt">
+          <label for="Gender" class="control-label">Gender</label>
+          <label class="w3layouts">
+            <input type="radio" name="gender" id="male" value="male" checked>Male
+          </label>
+          <label class="w3layouts label2">
+            <input type="radio" name="gender" id="female" value="female">Female
+          </label>
+        </div>
+        <div class="form-group">
+          <label for="faculty" class="control-label">Faculty:</label>
+          <input type="text" class="form-control" id="faculty" placeholder="Faculty">
+        </div>
+        <div class="form-group">
+          <label for="Degree" class="control-label">Degree:</label>
+          <label class="w3layouts">
+            <input type="radio" name="major" id="bachelor" value="bachelor" checked>Bachelor
+          </label>
+          <label class="w3layouts label2">
+            <input type="radio" name="major" id="master" value="master">Master
+          </label>
+          <label class="w3layouts label3">
+            <input type="radio" name="major" id="phd" value="phd">PHD
+          </label>
+        </div>
+        <div class="form-group">
+          <label for="major" class="control-label">Major:</label>
+          <input type="text" class="form-control" id="major" placeholder="Major">
+        </div>
+        <div class="form-group">
+          <label for="usetime" class="control-label">Years of using Chrome and website pop-up menus:</label>
+          <input type="text" class="form-control" id="usetime" placeholder="Using Time">
+        </div>
+
+        <h2 class="pre-title">Instruction:</h2>
+        <p>In this study, we would like to study about how marking menu compares with radial menu in terms of performance. We want to analyze their speed, accuracy and whether they are user-friendly enough. Therefore, we need you to join in this experiment to do some trials to test these two kinds of techniques.
+        <br />
+        <br />
+        Here is the instructions of how to use these two kinds of menus:<br />
+        ### Marking Menu <br />
+        - Popup: Left Mouse Down<br />
+        - Select: Stroke to leaf node<br />
+        - Reset: Release Mouse Down<br />
+        <br />
+        ### Radial Menu:<br />
+        - Popup: Right Click<br />
+        - Select: Left Click<br />
+        - Reset: Right Click<br />
+        <br/>
+        In each trial, you will need to find out a target menu button with these two kinds of menus. Each time, the menu kind, levels of menu and size of menus may be different. These pieces of information can be found at the top bar of trial page and each time you find the target button, you should press done “next” button to do next trial. At the end of all trials, you should press the “done” button to generate the log report for your experiment. 
+        <br/>
+        <br/>
+        The total experiment should be done within around 12 minutes. Thank you for your time and cooperation.
+        </p>
+
+        <h2>Consent:</h2>
+        <p><input type="checkbox" name="agree" value="agree"/>I have read this form and the research study has been explained to me. I have been given the opportunity to ask questions and my questions have been answered. If I have additional questions, I have been told whom to contact. I agree to participate in the research study described above and will receive a copy of this consent form.</p>
+        <div class="form-group">
+          <button button type="button" class="btn btn-lg" onClick="startExp('exp')">Start Experiment</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="exp" style="display:none">
 	<!-- State Div -->
     <div class="row" id="state-container">
       <div class="cellstate">
@@ -47,7 +150,7 @@
       <div class="cellstimulusresponse">
       <span class="label label-primary">Item selected</span>
 	<span class="label label-default" id="selectedItem">&nbsp;</span>
-      </div>            
+      </div>           
         <div class="cellnext">
       		<button id="nextButton" type="button" class="btn btn-block btn-primary btn-lg" onclick="loadNextTrial(event)">Next</button>
       </div>      
@@ -59,7 +162,7 @@
 	</div>
 
 
-
+</div>
   </body>
     
     

@@ -1,7 +1,7 @@
 'use strict';
 
 // Location of data files
-const trialsFile1 = "./data/experiments_Test.csv"
+const trialsFile1 = "./data/experiments1.csv"
 const trialsFile2 = "./data/experiments2.csv"
 const trialsFile3 = "./data/experiments3.csv"
 const trialsFile4 = "./data/experiments4.csv"
@@ -14,7 +14,7 @@ const menuL3B2File = "./data/menu_depth_3_breadth_2.csv"
 
 // Global variables
 var menu;
-var partiID = 1;
+var partiID = 7;
 var trialsData = [];
 var numTrials = 0;
 var currentTrial = 1;
@@ -40,6 +40,7 @@ var radialMenuL3B2 = [];
 var tracker = new ExperimentTracker();
 var markingMenuSubscription = null;
 var radialMenuSvg = null;
+var trialsFile = [];
 
 
 
@@ -53,14 +54,17 @@ function getData(relativePath) {
 	return xmlHttp.responseText;
 }
 
+function setInformationToTracker() {
+	
+}
 
 // Loads the CSV data files on page load and store it to global variables
 function initExperiment() {
-
+	trialsFile = [trialsFile1, trialsFile2, trialsFile3, trialsFile4, trialsFile1, trialsFile2, trialsFile3, trialsFile4];
 	document.getElementById("partiId").innerHTML = partiID;
 	tracker.partiId = partiID;
 	// Get Trails
-	var data = getData(trialsFile1);
+	var data = getData(trialsFile[partiID - 1]);
 
 	var records = data.split("\n");
 	numTrials = records.length - 1;
@@ -118,6 +122,7 @@ function loadNextTrial(e){
 // Move to next trai and record events
 function nextTrial() {
 
+	tracker.loadStartTimer();
 	
 	if (currentTrial <= numTrials) {
 
@@ -190,6 +195,9 @@ function nextTrial() {
 		}
 
 		currentTrial++;
+
+		tracker.loadEndTimer();
+
 	} else {
 		
 	    var nextButton = document.getElementById("nextButton");
