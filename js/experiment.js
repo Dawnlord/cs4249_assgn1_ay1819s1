@@ -1,7 +1,7 @@
 'use strict';
 
 // Location of data files
-const trialsFile1 = "./data/experiments1.csv"
+const trialsFile1 = "./data/experiments_Test.csv"
 const trialsFile2 = "./data/experiments2.csv"
 const trialsFile3 = "./data/experiments3.csv"
 const trialsFile4 = "./data/experiments4.csv"
@@ -58,6 +58,7 @@ function getData(relativePath) {
 function initExperiment() {
 
 	document.getElementById("partiId").innerHTML = partiID;
+	tracker.partiId = partiID;
 	// Get Trails
 	var data = getData(trialsFile1);
 
@@ -69,11 +70,13 @@ function initExperiment() {
 		var menuDepth = cells[1].trim();
 		var menuBreadth = cells[2].trim();
 		var targetItem = cells[3].trim();
+		var trialNo = cells[4].trim();
 		trialsData[i] = {
 			'Menu Type': menuType,
 			'Menu Depth': menuDepth,
 			'Menu Breadth': menuBreadth, 
-			'Target Item': targetItem
+			'Target Item': targetItem,
+			'Trial': trialNo
 		};
 	}
 
@@ -122,6 +125,7 @@ function nextTrial() {
 		var menuDepth = trialsData[currentTrial]['Menu Depth'];
 		var menuBreadth = trialsData[currentTrial]['Menu Breadth'];
 		var targetItem = trialsData[currentTrial]['Target Item'];
+		var trialNo = trialsData[currentTrial]['Trial'];
 
 		document.getElementById("trialNumber").innerHTML = String(currentTrial) + "/" + String(numTrials);
 		document.getElementById("menuType").innerHTML = menuType;
@@ -132,7 +136,8 @@ function nextTrial() {
 		// Set IV3 state over here
 
 		tracker.newTrial();
-		tracker.trial = currentTrial;
+		tracker.order = currentTrial;
+		tracker.trial = trialNo;
 		tracker.menuType = menuType;
 		tracker.menuDepth = menuDepth;
 		tracker.menuBreadth = menuBreadth;
