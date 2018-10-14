@@ -79,24 +79,25 @@ class ExperimentTracker {
 
 	toCsv() {
 		this.personalData.push([this.partiName,this.age,this.gender,this.faculty,this.degree,this.major,this.usedMarking,this.usedRadial,this.usingTime,this.handType]);
-		var csvFile = "Name,Age,Gender,Faculty,Degree,Major,Have used Marking,Have used Radial,Using Time,Hand Type\n";
+		var csvFile2 = "Name,Age,Gender,Faculty,Degree,Major,Have used Marking,Have used Radial,Using Time,Hand Type\n";
 		for (var i = 0; i < this.personalData.length; i++) {
-			csvFile += this.personalData[i].join(',');
-			csvFile += "\n";
+			csvFile2 += this.personalData[i].join(',');
+			csvFile2 += "\n";
 		}
-		csvFile += "\n";
+		csvFile2 += "\n";
 
+		var csvFile = "";
 		csvFile += "Order,Participant ID,Technique,Menu Depth,Menu Breadth,Trial,Target Item,Selected Item,Attempt,Start Time, End Time, Click Numbers\n";
 		for (var i = 0; i < this.trials.length; i++) {
 			csvFile += this.trials[i].join(',');
 			csvFile += "\n";
 		}
 
-		csvFile += "\nRate of Marking,Rate of Radial,Preference,Difficulties of Marking,Difficulties of Radial,Suggestion of Marking,Suggestion of Radial\n";
+		csvFile2 += "\nRate of Marking,Rate of Radial,Preference,Difficulties of Marking,Difficulties of Radial,Suggestion of Marking,Suggestion of Radial\n";
 		this.postData.push([this.rom,this.ror,this.prefer,this.dom,this.dor,this.som,this.sor]);
 		for (var i = 0; i < this.postData.length; i++) {
-			csvFile += this.postData[i].join(',');
-			csvFile += "\n";
+			csvFile2 += this.postData[i].join(',');
+			csvFile2 += "\n";
 		}
 
 		var hiddenLink = document.createElement('a');
@@ -105,6 +106,13 @@ class ExperimentTracker {
 		hiddenLink.download = 'experiment_result_' + this.partiId + '.csv';
 		document.body.appendChild(hiddenLink);
 		hiddenLink.click();
+
+		var hiddenLink2 = document.createElement('a');
+		hiddenLink2.href = 'data:text/csv;charset=utf-8,' + encodeURI(csvFile2);
+		hiddenLink2.target = '_blank';
+		hiddenLink2.download = 'experiment_information_' + this.partiId + '.csv';
+		document.body.appendChild(hiddenLink2);
+		hiddenLink2.click();
 	}
 
 
