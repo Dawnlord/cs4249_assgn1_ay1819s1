@@ -9,7 +9,10 @@ class ExperimentTracker {
 		this.faculty = null;
 		this.degree = null;
 		this.major = null;
+		this.usedMarking = null;
+		this.usedRadial = null;
 		this.usingTime = null;
+		this.handType = null;
 
 		this.personalData = [];
 
@@ -36,9 +39,7 @@ class ExperimentTracker {
 		this.selectedItem = null;
 		this.startTime = null;
 		this.endTime = null;
-		this.loadStartTime = null;
-		this.loadEndTime = null;
-		this.loadTime = null;
+		this.clickNum = 0;
 	}
 	
 	resetTimers(){
@@ -50,24 +51,23 @@ class ExperimentTracker {
 		this.startTime = Date.now();
 	}
 
-	loadStartTimer() {
-		this.loadStartTime = Date.now();
-	}
-
-	loadEndTimer() {
-		this.loadEndTime = Date.now();
-		this.loadTime = this.loadEndTime - this.loadStartTime;
-	}
-
 	recordSelectedItem(selectedItem) {
 		this.selectedItem = selectedItem;
 		this.stopTimer();
 	}
 
+	startCollectClick(){
+		this.clickNum = 0;
+	}
+
+	addClickNum(){
+		this.clickNum++;
+	}
+
 	stopTimer() {
 		
 		this.endTime = Date.now();
-		this.trials.push([this.order, this.partiId, this.menuType, this.menuDepth, this.menuBreadth, this.trial, this.targetItem, this.selectedItem, this.attempt, this.startTime, this.endTime, this.loadTime])
+		this.trials.push([this.order, this.partiId, this.menuType, this.menuDepth, this.menuBreadth, this.trial, this.targetItem, this.selectedItem, this.attempt, this.startTime, this.endTime, this.clickNum])
 		this.resetTimers();
 		this.attempt++;
 
@@ -78,15 +78,15 @@ class ExperimentTracker {
 	}
 
 	toCsv() {
-		this.personalData.push([this.partiName,this.age,this.gender,this.faculty,this.degree,this.major,this.usingTime]);
-		var csvFile = "Name,Age,Gender,Faculty,Degree,Major,Using Time\n";
+		this.personalData.push([this.partiName,this.age,this.gender,this.faculty,this.degree,this.major,this.usedMarking,this.usedRadial,this.usingTime,this.handType]);
+		var csvFile = "Name,Age,Gender,Faculty,Degree,Major,Have used Marking,Have used Radial,Using Time,Hand Type\n";
 		for (var i = 0; i < this.personalData.length; i++) {
 			csvFile += this.personalData[i].join(',');
 			csvFile += "\n";
 		}
 		csvFile += "\n";
 
-		csvFile += "Order,Participant ID,Technique,Menu Depth,Menu Breadth,Trial,Target Item,Selected Item,Attempt,Start Time, End Time, Response Time\n";
+		csvFile += "Order,Participant ID,Technique,Menu Depth,Menu Breadth,Trial,Target Item,Selected Item,Attempt,Start Time, End Time, Click Numbers\n";
 		for (var i = 0; i < this.trials.length; i++) {
 			csvFile += this.trials[i].join(',');
 			csvFile += "\n";

@@ -38,6 +38,12 @@
         var bachelor = document.getElementById('bachelor');
         var master = document.getElementById('master');
         var phd = document.getElementById('phd');
+        var usedMarkingY = document.getElementById('usedMarkingYes');
+        var usedMarkingN = document.getElementById('usedMarkingNo');
+        var usedMarkingNever = document.getElementById('usedMarkingNever');
+        var usedRadialY = document.getElementById('usedRadialYes');
+        var usedRadialN = document.getElementById('usedRadialNo');
+        var usedRadialNever = document.getElementById('usedRadialNever');
 
         var pID = document.getElementById('pid'); //name.value == ''
         var name = document.getElementById('name');
@@ -47,6 +53,9 @@
         var degree = bachelor.checked ? 'Bachelor' : (master.checked ? 'Master' : 'PHD');
         var major = document.getElementById('major');
         var usingTime = document.getElementById('usetime');
+        var usedMarking = usedMarkingY.checked ? 'Yes' : (usedMarkingN.checked ? 'No' : 'Never Heard');
+        var usedRadial = usedRadialY.checked ? 'Yes' : (usedRadialN.checked ? 'No' : 'Never Heard');
+        var handType = document.getElementById('hand');
         var agree = document.getElementById('agree'); //agree.checked
         
         var testResult = (pID.value != 0)
@@ -55,6 +64,7 @@
                         && (faculty.value != '')
                         && (major.value != '')
                         && (usingTime.value != '')
+                        && (handType.value != '')
                         && (agree.checked)
         if(testResult) {
           allData = {
@@ -65,7 +75,10 @@
             'Faculty':faculty.value,
             'Degree':degree,
             'Major':major.value,
-            'Using Time':usingTime.value
+            'Have used Marking':usedMarking,
+            'Have used Radial':usedRadial,
+            'Using Time':usingTime.value,
+            'Hand Type':handType.value
           };
         }
         return testResult;
@@ -127,6 +140,35 @@
 
   <div class="content-agileits" id="instruction">
     <h1 class="title">Experiment to compare Marking and Radial menus</h1>
+
+    <h2 class="pre-title">Instruction:</h2>
+        <p><Strong>1. Project Title:</Strong>  Interviews and Observations of how marking menu compares with radial menu in terms of performance.</p>
+        <p><Strong>2. Investigators:</Strong>  Liu Hanyang  e0336211@u.nus.edu</p>
+        <p><Strong>3. Purpose:</Strong>  The purpose of our research is to understand how marking menu compares with radial menu in terms of performance to help us derive requirements for the design of novel interactive computational media that are intended to be useful to users of GUI.</p>
+        <p><Strong>4. Process to be followed:</Strong>  We will brief the participants about the purpose of the study, explain the consent form to them, and ensure that they sign the consent form.  We will then engage the participants in a 12-minute website experiment to gather data. </p>
+        <p><Strong>5. Participant selection:</Strong>  Participants will be chosen from nus students.  They will be selected randomly.  In general, they will be characterized by knowing how to use GUI.</p>
+        <p><Strong>6. Relationships:</Strong>  Our relationship to the participants may be described as follows: No Relationship</p>
+        <p><Strong>7. Risk and benefit:</Strong>  There will be minimal risk to the participants, for example that they feel that they have wasted their time.  The only benefit will be to contribute to the education of the investigators.  Participants are free to withdraw before or at any time during the study without the need to give any explanation.</p>
+        <p><Strong>8. Consent details:</Strong>  We will brief the participants about the purpose of the study, and explain the attached consent form to them, and ensure that they consent to participate and sign the consent form.</p>
+        <p><Strong>9. Compensation:</Strong> Participants will receive no compensation.</p>
+        <p><Strong>10. Information sought:</Strong></p>
+        <p>
+        Here are the instructions of how to use these two kinds of menus:<br />
+        ### Marking Menu <br />
+        - Popup: Left Mouse Down<br />
+        - Select: Stroke to leaf node<br />
+        - Reset: Release Mouse Down<br />
+        <br />
+        ### Radial Menu:<br />
+        - Popup: Right Click<br />
+        - Select: Left Click<br />
+        - Reset: Right Click<br />
+        <br/>
+        In each trial, you will need to find out a target menu button with these two kinds of menus. Each time, the menu kind, levels of menu and size of menus may be different. These pieces of information can be found at the top bar of trial page and each time you find the target button, you should press done “next” button to do next trial. At the end of all trials, you should press the “done” button to generate the log report for your experiment. 
+        <br/>
+        </p>
+        <p><Strong>11. Confidentiality:</Strong> Information will be kept confidential by the investigators.  Names or other identifying or identified information will not be kept with the data.  The only other use will be to include excerpts or copies in the assignment submitted, but names and other identifying or identified information will not be submitted. </p>
+
     <div class="content" style="line-height:30px;">
       <form action="#" method="post" data-toggle="validator">
         <h2 class="pre-title">Pre-experiment:</h2>
@@ -180,33 +222,51 @@
           <label for="major" class="control-label">Major:</label>
           <input type="text" class="form-control" id="major" placeholder="Major">
         </div>
+        <p></p>
+        <div class="form-group w3ls-opt">
+          <label for="usedMarking" class="control-label">1) Have you used Marking Menu before?</label>
+          <br/>
+          <label class="w3layouts">
+            <input type="radio" name="usedMarking" id="usedMarkingYes" value="Yes" checked>A. Yes
+          </label>
+          <label class="w3layouts label2">
+            <input type="radio" name="usedMarking" id="usedMarkingNo" value="No">B. No
+          </label>
+          <label class="w3layouts label3">
+            <input type="radio" name="usedMarking" id="usedMarkingNever" value="NeverHeard">C. Never Heard
+          </label>
+        </div>
+        <div class="form-group w3ls-opt">
+          <label for="usedMarking" class="control-label">2) Have you used Radial Menu before?</label>
+          <br/>
+          <label class="w3layouts">
+            <input type="radio" name="usedRadial" id="usedRadialYes" value="Yes" checked>A. Yes
+          </label>
+          <label class="w3layouts label2">
+            <input type="radio" name="usedRadial" id="usedRadialNo" value="No">B. No
+          </label>
+          <label class="w3layouts label3">
+            <input type="radio" name="usedRadial" id="usedRadialNever" value="NeverHeard">C. Never Heard
+          </label>
+        </div>
         <div class="form-group">
-          <label for="usetime" class="control-label">Years of using Chrome and website pop-up menus:</label>
+          <label for="usetime" class="control-label">3) How many years have you used computer?</label>
           <input type="text" class="form-control" id="usetime" placeholder="Using Time">
         </div>
-
-        <h2 class="pre-title">Instruction:</h2>
-        <p>In this study, we would like to study about how marking menu compares with radial menu in terms of performance. We want to analyze their speed, accuracy and whether they are user-friendly enough. Therefore, we need you to join in this experiment to do some trials to test these two kinds of techniques.
-        <br />
-        <br />
-        Here is the instructions of how to use these two kinds of menus:<br />
-        ### Marking Menu <br />
-        - Popup: Left Mouse Down<br />
-        - Select: Stroke to leaf node<br />
-        - Reset: Release Mouse Down<br />
-        <br />
-        ### Radial Menu:<br />
-        - Popup: Right Click<br />
-        - Select: Left Click<br />
-        - Reset: Right Click<br />
-        <br/>
-        In each trial, you will need to find out a target menu button with these two kinds of menus. Each time, the menu kind, levels of menu and size of menus may be different. These pieces of information can be found at the top bar of trial page and each time you find the target button, you should press done “next” button to do next trial. At the end of all trials, you should press the “done” button to generate the log report for your experiment. 
-        <br/>
-        <br/>
-        The total experiment should be done within around 12 minutes. Thank you for your time and cooperation.
-        </p>
+        <div class="form-group">
+          <label for="hand" class="control-label">4)  Are you left-handed or right-handed?</label>
+          <input type="text" class="form-control" id="hand" placeholder="Hand Type">
+        </div>
 
         <h2>Consent:</h2>
+        <p>I hereby consent to participate in a research study conducted by Liu Hanyang for an assignment in National University of Singapore Computer Science 4249, PHENOMENA AND THEORIES OF HUMAN-COMPUTER INTERACTION.</p>
+        <p>I agree to participate in this study the purpose of which is about how marking menu compares with radial menu in terms of performance.</p>
+        <p>I understand that <br />
+        * the procedures to be used are html websites.<br />
+        * I will receive no compensation for my participation.<br />
+        * I am free to withdraw before or any time during the study without the need to give any explanation.<br />
+        * all materials and results will be kept confidential, and, in particular, that my name and any identifying or identified information will not be associated with the data.<br />
+        </p>
         <p><input type="checkbox" name="agree" value="agree" id="agree"/>I have read this form and the research study has been explained to me. I have been given the opportunity to ask questions and my questions have been answered. If I have additional questions, I have been told whom to contact. I agree to participate in the research study described above and will receive a copy of this consent form.</p>
         <div class="form-group">
           <button button type="button" class="btn btn-lg" onClick="startExp('exp')">Start Experiment</button>

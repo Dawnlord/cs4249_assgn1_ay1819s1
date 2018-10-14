@@ -62,6 +62,9 @@ function setInformationToTracker(alldata) {
 	tracker.faculty = alldata['Faculty'];
 	tracker.degree = alldata['Degree'];
 	tracker.major = alldata['Major'];
+	tracker.usedMarking = alldata['Have used Marking'];
+	tracker.usedRadial = alldata['Have used Radial'];
+	tracker.handType = alldata['Hand Type'];
 	tracker.usingTime = alldata['Using Time'];
 }
 
@@ -129,8 +132,8 @@ function loadNextTrial(e){
 // Move to next trai and record events
 function nextTrial() {
 
-	tracker.loadStartTimer();
-	
+	tracker.startCollectClick();
+
 	if (currentTrial <= numTrials) {
 
 		var menuType = trialsData[currentTrial]['Menu Type'];
@@ -202,8 +205,6 @@ function nextTrial() {
 		}
 
 		currentTrial++;
-
-		tracker.loadEndTimer();
 
 	} else {
 		
@@ -294,7 +295,7 @@ function formatMarkingMenuData(data) {
 
 // Function to start tracking timer on mouse down
 function markingMenuOnMouseDown(){
-
+	tracker.addClickNum();
 	tracker.startTimer();
 }
 
@@ -330,7 +331,7 @@ function initializeRadialMenu(){
 	var interactionContainer = document.getElementById('interaction-container');
 	var radialMenuContainer = document.getElementById('radial-menu-container');
 	if(radialMenuContainer == null){
-		interactionContainer.innerHTML += "<div id=\"radial-menu-container\" style=\"height:100%;width:100%\" oncontextmenu=\"toggleRadialMenu(event)\"></div>";
+		interactionContainer.innerHTML += "<div id=\"radial-menu-container\" style=\"height:100%;width:100%\" onmousedown=\"tracker.addClickNum()\" oncontextmenu=\"toggleRadialMenu(event)\"></div>";
 	}
 
 }
